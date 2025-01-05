@@ -54,7 +54,7 @@
     <Content Include="preview\preview_overview.png" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="0Harmony">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\Steam dev\CopyOfManagedAfterMerge\0Harmony.dll</HintPath>
       <Private>True</Private>
@@ -63,30 +63,30 @@
       <HintPath>..\..\..\..\Desktop\Steam dev\CopyOfManagedAfterMerge\Assembly-CSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Assembly-CSharp-firstpass">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\Steam dev\CopyOfManagedAfterMerge\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PLib, Version=4.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PLib.4.4.0\lib\net471\PLib.dll</HintPath>
+    <Reference Include="PLib, Version=4.17.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PLib.4.17.1\lib\net471\PLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\Steam dev\CopyOfManagedAfterMerge\UnityEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine.CoreModule">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\Steam dev\CopyOfManagedAfterMerge\UnityEngine.CoreModule.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine.ImageConversionModule">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\Steam dev\CopyOfManagedAfterMerge\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>True</Private>
@@ -100,19 +100,25 @@
   <PropertyGroup>
     <PostBuildEvent>:: Merge for PLib usage:
 "$(ILMergeConsolePath)" /ndebug /out:$(TargetName)Mod.dll $(TargetName).dll PLib.dll /targetplatform:v4,C:\Windows\Microsoft.NET\Framework64\v4.0.30319
-mkdir "%25HOMEPATH%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)"
+set buildtobase=%25homedrive%25%25homepath%25
+set buildtopath=%25buildtobase%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)
+
+mkdir "%25buildtopath%25"
+echo "Building to: %25buildtopath%25"
 
 :: Copy merged version instead of original DLL for PLib usage:
-::copy "$(TargetPath)" "%25HOMEPATH%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)"
-copy "$(TargetName)Mod.dll" "%25HOMEPATH%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)"
+::copy "$(TargetPath)" "%25buildtopath%25"
+copy "$(TargetName)Mod.dll" "%25buildtopath%25"
 
-IF EXIST  "$(TargetDir)*.json" ( copy "$(TargetDir)*.json" "%25HOMEPATH%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)" )
-IF EXIST  "$(TargetDir)*.txt" ( copy "$(TargetDir)*.txt" "%25HOMEPATH%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)" )</PostBuildEvent>
+IF EXIST  "$(TargetDir)*.json" ( copy "$(TargetDir)*.json" "%25buildtopath%25" )
+IF EXIST  "$(TargetDir)*.txt" ( copy "$(TargetDir)*.txt" "%25buildtopath%25" )</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILMerge.3.0.41\build\ILMerge.props'))" />
+    <Error Condition="!Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.26\build\ILRepack.Lib.MSBuild.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.Lib.MSBuild.Task.2.0.26\build\ILRepack.Lib.MSBuild.Task.targets'))" />
   </Target>
+  <Import Project="..\packages\ILRepack.Lib.MSBuild.Task.2.0.26\build\ILRepack.Lib.MSBuild.Task.targets" Condition="Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.26\build\ILRepack.Lib.MSBuild.Task.targets')" />
 </Project>

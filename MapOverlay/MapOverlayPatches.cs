@@ -31,7 +31,9 @@ namespace MapOverlay
                 // Add translations (some of them needed as ONI would otherwise display MISSING.STRINGS)
                 foreach (KeyValuePair<string, string> entry in MapOverlay.Filters)
                 {
-                    Strings.Add($"STRINGS.UI.TOOLS.FILTERLAYERS.{ entry.Key }", entry.Value);
+                    Strings.Add( $"STRINGS.UI.TOOLS.FILTERLAYERS.{entry.Key}.NAME" , entry.Value);
+                    Strings.Add( $"STRINGS.UI.TOOLS.FILTERLAYERS.{entry.Key}.DESC" , entry.Value );
+                    Strings.Add( $"STRINGS.UI.TOOLS.FILTERLAYERS.{entry.Key}.TOOLTIP" , entry.Value );
                 }
                 
                 Strings.Add(MapOverlay.LocName, MapOverlay.Name);

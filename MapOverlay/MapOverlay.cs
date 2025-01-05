@@ -185,7 +185,7 @@ namespace MapOverlay
         // Note: subworld information incl. zone type is stored in SettingsCache.subworlds; names are in directory style (e.g. subworlds/frozen/FrozenCore), where the middle part could be used as a key to look up name in STRINGS.SUBWORLDS; subworld structure is in the StreamingAssets of the game data.
         private static string GetName(ZoneType biome)
         {
-            switch (biome)
+            switch( biome )
             {
                 case ZoneType.FrozenWastes:
                     return FROZEN.NAME;
@@ -215,12 +215,20 @@ namespace MapOverlay
                     return SWAMP.NAME;
                 case ZoneType.Wasteland:
                     return WASTELAND.NAME;
-                case ZoneType.RocketInterior:
-                    return "Rocket Interior";
                 case ZoneType.Metallic:
                     return METALLIC.NAME;
                 case ZoneType.Barren:
                     return BARREN.NAME;
+                case ZoneType.Moo:
+                    return MOO.NAME;
+                case ZoneType.IceCaves:
+                    return ICECAVES.NAME;
+                case ZoneType.CarrotQuarry:
+                    return CARROTQUARRY.NAME;
+                case ZoneType.SugarWoods:
+                    return SUGARWOODS.NAME;
+                case ZoneType.RocketInterior:
+                    return "Rocket Interior";
                 default:
                     return "Unknown";
             }
