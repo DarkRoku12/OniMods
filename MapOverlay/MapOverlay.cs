@@ -1,12 +1,11 @@
-﻿//using STRINGS;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
-using static ProcGen.SubWorld;
 using PeterHan.PLib.Options;
+using static ProcGen.SubWorld;
 
 namespace MapOverlay
 {
