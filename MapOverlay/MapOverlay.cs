@@ -1,4 +1,4 @@
-﻿using STRINGS;
+﻿//using STRINGS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 using static ProcGen.SubWorld;
-using static STRINGS.SUBWORLDS;
 using PeterHan.PLib.Options;
 
 namespace MapOverlay
@@ -185,50 +184,57 @@ namespace MapOverlay
         // Note: subworld information incl. zone type is stored in SettingsCache.subworlds; names are in directory style (e.g. subworlds/frozen/FrozenCore), where the middle part could be used as a key to look up name in STRINGS.SUBWORLDS; subworld structure is in the StreamingAssets of the game data.
         private static string GetName(ZoneType biome)
         {
+
             switch( biome )
             {
                 case ZoneType.FrozenWastes:
-                    return FROZEN.NAME;
+                    return STRINGS.SUBWORLDS.FROZEN.NAME;
                 case ZoneType.CrystalCaverns:
-                    return NIOBIUM.NAME; // TODO: Check. Per YAML files, niobium subworld should actually be ZoneType.OilField and CrystalCaverns would remain unused.
+                    return STRINGS.SUBWORLDS.NIOBIUM.NAME; // TODO: Check. Per YAML files, niobium subworld should actually be ZoneType.OilField and CrystalCaverns would remain unused.
                 case ZoneType.BoggyMarsh:
-                    return MARSH.NAME;
+                    return STRINGS.SUBWORLDS.MARSH.NAME;
                 case ZoneType.Sandstone:
-                    return SANDSTONE.NAME;
+                    return STRINGS.SUBWORLDS.SANDSTONE.NAME;
                 case ZoneType.ToxicJungle:
-                    return JUNGLE.NAME;
+                    return STRINGS.SUBWORLDS.JUNGLE.NAME;
                 case ZoneType.MagmaCore:
-                    return MAGMA.NAME;
+                    return STRINGS.SUBWORLDS.MAGMA.NAME;
                 case ZoneType.OilField:
-                    return OIL.NAME;
+                    return STRINGS.SUBWORLDS.OIL.NAME;
                 case ZoneType.Space:
-                    return SPACE.NAME;
+                    return STRINGS.SUBWORLDS.SPACE.NAME;
                 case ZoneType.Ocean:
-                    return OCEAN.NAME;
+                    return STRINGS.SUBWORLDS.OCEAN.NAME;
                 case ZoneType.Rust:
-                    return RUST.NAME;
+                    return STRINGS.SUBWORLDS.RUST.NAME;
                 case ZoneType.Forest:
-                    return FOREST.NAME;
+                    return STRINGS.SUBWORLDS.FOREST.NAME;
                 case ZoneType.Radioactive:
-                    return RADIOACTIVE.NAME;
+                    return STRINGS.SUBWORLDS.RADIOACTIVE.NAME;
                 case ZoneType.Swamp:
-                    return SWAMP.NAME;
+                    return STRINGS.SUBWORLDS.SWAMP.NAME;
                 case ZoneType.Wasteland:
-                    return WASTELAND.NAME;
+                    return STRINGS.SUBWORLDS.WASTELAND.NAME;
                 case ZoneType.Metallic:
-                    return METALLIC.NAME;
+                    return STRINGS.SUBWORLDS.METALLIC.NAME;
                 case ZoneType.Barren:
-                    return BARREN.NAME;
+                    return STRINGS.SUBWORLDS.BARREN.NAME;
                 case ZoneType.Moo:
-                    return MOO.NAME;
+                    return STRINGS.SUBWORLDS.MOO.NAME;
                 case ZoneType.IceCaves:
-                    return ICECAVES.NAME;
+                    return STRINGS.SUBWORLDS.ICECAVES.NAME;
                 case ZoneType.CarrotQuarry:
-                    return CARROTQUARRY.NAME;
+                    return STRINGS.SUBWORLDS.CARROTQUARRY.NAME;
                 case ZoneType.SugarWoods:
-                    return SUGARWOODS.NAME;
+                    return STRINGS.SUBWORLDS.SUGARWOODS.NAME;
                 case ZoneType.RocketInterior:
                     return "Rocket Interior";
+                case ZoneType.PrehistoricGarden:
+                    return STRINGS.SUBWORLDS.GARDEN.NAME;
+                case ZoneType.PrehistoricRaptor:
+                    return STRINGS.SUBWORLDS.RAPTOR.NAME;
+                case ZoneType.PrehistoricWetlands:
+                    return STRINGS.SUBWORLDS.WETLANDS.NAME;
                 default:
                     return "Unknown";
             }
@@ -252,7 +258,7 @@ namespace MapOverlay
             }
 
             // Collect the legend entries
-            foreach (KeyValuePair<string, MapOverlayEntry> entry in ColorMap.OrderBy(e => UI.StripLinkFormatting(e.Value.Name.text)).ToList())
+            foreach (KeyValuePair<string, MapOverlayEntry> entry in ColorMap.OrderBy(e => STRINGS.UI.StripLinkFormatting(e.Value.Name.text)).ToList())
             {
                 // If multiple entries with the same color exist, merge them in one legend entry
                 LegendEntry existingLegendEntry = entries.Find(legend => legend.colour == entry.Value.Color);
